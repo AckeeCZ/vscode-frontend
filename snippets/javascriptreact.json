@@ -1,0 +1,37 @@
+{
+  "React import": {
+    "prefix": "imrd",
+    "body": ["import { React, PropTypes$0 } from '../../dependencies';"],
+    "description": "Imports React and PropTypes from dependencies"
+  },
+  "Export default": {
+    "prefix": "export-default",
+    "body": "export { default } from '$1';$0",
+    "description": "Export for component indexes"
+  },
+  "Create React fela component": {
+    "prefix": "rfc",
+    "body": [
+      "import { React, FelaComponent, PropTypes } from '../../dependencies';\n",
+      "import style from './$1.style';\n",
+      "const $1 = ({ $2 }) => (\n\t<FelaComponent customClass=\"$1\" style={style}>\n\t\t$0\n\t</FelaComponent>\n);\n",
+      "$1.propTypes = {",
+      "};\n",
+      "export default $1;\n"
+    ],
+    "description": "React stateless component with Fela component"
+  },
+  "Create React fela connect component": {
+    "prefix": "rfcc",
+    "body": [
+      "import { React, PropTypes, connectFela } from '../../dependencies';\n",
+      "import * as componentStyles from './$1.style';\n",
+      "const $1 = ({ styles }) => (\n\t<div className={styles.container}>\n\t\t$0\n\t</div>\n);\n",
+      "$1.propTypes = {",
+      "\tstyles: PropTypes.shape({\n\t\tcontainer: PropTypes.string.isRequired\n\t}).isRequired",
+      "};\n",
+      "export default connectFela(componentStyles)($1);\n"
+    ],
+    "description": "React stateless component with Fela connect HOC"
+  }
+}

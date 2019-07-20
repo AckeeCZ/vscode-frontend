@@ -1,0 +1,22 @@
+{
+  "Fela rule default": {
+    "prefix": "frd",
+    "body": ["export default () => ({", "\t$0", "});"],
+    "description": "Creates empty fela rule with default export."
+  },
+  "Themed fela rule default": {
+    "prefix": "frdt",
+    "body": ["export default ({ theme }) => ({", "\t$0", "});"],
+    "description": "Creates empty fela rule with theme prop injected and named export."
+  },
+  "Fela rule": {
+    "prefix": "fr",
+    "body": ["export const $1 = () => ({", "\t$0", "});"],
+    "description": "Creates empty fela rule with named export."
+  },
+  "Themed fela rule": {
+    "prefix": "frt",
+    "body": ["export const $1 = ({ theme ) => ({", "\t$0", "});"],
+    "description": "Creates empty fela rule with theme prop injected and named export."
+  }
+}
