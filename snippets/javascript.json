@@ -7,7 +7,7 @@
   "Themed fela rule default": {
     "prefix": "frdt",
     "body": ["export default ({ theme }) => ({", "\t$0", "});"],
-    "description": "Creates empty fela rule with theme prop injected and named export."
+    "description": "Creates empty fela rule with theme prop injected and default export."
   },
   "Fela rule": {
     "prefix": "fr",

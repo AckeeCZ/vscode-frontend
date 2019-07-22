@@ -5,7 +5,7 @@
     "description": "Imports React and PropTypes from dependencies"
   },
   "Export default": {
-    "prefix": "export-default",
+    "prefix": "ed",
     "body": "export { default } from '$1';$0",
     "description": "Export for component indexes"
   },
