@@ -4,7 +4,7 @@
   "description": "A set of usefull snippets and commands we use at Ackee for web apps development.",
   "version": "0.0.1",
   "repository": "https://github.com/AckeeCZ/vscode-frontend",
-  "publisher": "Ackee",
+  "publisher": "ackee",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.36.0"
