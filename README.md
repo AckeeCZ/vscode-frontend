@@ -1,3 +1,5 @@
+![Ackee javascript](images/ackee_javascript.jpeg)
+
 # Ackee Frontend VS Code extension
 
 A set of usefull snippets and commands we use at Ackee for web apps development.
