@@ -16,7 +16,12 @@
   },
   "Themed fela rule": {
     "prefix": "frt",
-    "body": ["export const $1 = ({ theme ) => ({", "\t$0", "});"],
+    "body": ["export const $1 = ({ theme }) => ({", "\t$0", "});"],
     "description": "Creates empty fela rule with theme prop injected and named export."
+  },
+  "Export default": {
+    "prefix": "ed",
+    "body": "export { default } from '$1';$0",
+    "description": "Export for component indexes"
   }
 }
