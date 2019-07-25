@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "repository": "https://github.com/AckeeCZ/vscode-frontend",
   "publisher": "ackee",
-  "icon": "images/icon.png",
+  "icon": "images/ackee-logo.png",
   "engines": {
     "vscode": "^1.36.0"
   },
