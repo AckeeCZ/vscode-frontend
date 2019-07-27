@@ -20,13 +20,13 @@
   ],
   "main": "./src/extension.js",
   "activationEvents": [
-    "onCommand:extension.createModule"
+    "onCommand:extension.createComponent"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "extension.createModule",
-        "title": "Create module"
+        "command": "extension.createComponent",
+        "title": "Create component"
       }
     ],
     "snippets": [
@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "fs": "0.0.1-security",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "shelljs": "^0.8.3"
   }
 }
