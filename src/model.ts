@@ -6,7 +6,7 @@ import * as path from "path";
 import { index, component, styles } from "./template/component";
 
 export default class Model {
-  createComponent(fileUri: string) {
+  createComponent(contextUri: string) {
     vscode.window
       .showInputBox({
         value: "",
@@ -19,7 +19,7 @@ export default class Model {
         const workspacePath = vscode.workspace.workspaceFolders[0].uri
           .toString()
           .split(":")[1];
-        const folderPath = `${workspacePath}/${name}`;
+        const folderPath = `${contextUri || workspacePath}/${name}`;
 
         this.createFolder(folderPath);
         this.createFile(folderPath, "index.js", index(name));

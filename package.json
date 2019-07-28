@@ -26,9 +26,23 @@
     "commands": [
       {
         "command": "extension.createComponent",
-        "title": "Create component"
+        "title": "Ackee: create component"
       }
     ],
+    "keybindings": [
+      {
+        "command": "extension.createComponent",
+        "key": "cmd+a cmd+c"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.createComponent",
+          "group": "ackee"
+        }
+      ]
+    },
     "snippets": [
       {
         "language": "javascript",

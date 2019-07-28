@@ -8,7 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "extension.createComponent",
       (file: vscode.Uri) => {
-        model.createComponent(file ? file.fsPath : "/");
+        model.createComponent(file && file.fsPath);
       }
     )
   );
