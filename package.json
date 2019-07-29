@@ -6,7 +6,7 @@
   "repository": "https://github.com/AckeeCZ/vscode-frontend",
   "publisher": "ackee",
   "license": "MIT",
-  "icon": "images/ackee-logo.png",
+  "icon": "images/ackee-logo.jpg",
   "galleryBanner": {
     "color": "#000000",
     "theme": "dark"
