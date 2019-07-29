@@ -4,6 +4,8 @@ All notable changes to the "ackee-frontend" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## 0.2.4 - 2019-07-29
+
 ## 0.2.3 - 2019-07-29
 ### Changed
 - logo
