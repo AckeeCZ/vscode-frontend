@@ -2,7 +2,7 @@ export const index = name => `export { default } from './${name}'\n`;
 
 export const component = name => `import { React, PropTypes, connectFela } from '../../dependencies';
 
-import * as componentStyles from './${name}.style';
+import * as componentStyles from './${name}.styles';
 
 const ${name} = ({ styles }) => (
     <div className={styles.container}>
