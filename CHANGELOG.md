@@ -4,6 +4,6 @@ All notable changes to the "ackee-frontend" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
-
-- Initial release
+## [0.1.2] - 2019-07-22
+### Added
+- Snippets for Fela

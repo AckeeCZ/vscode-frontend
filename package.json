@@ -5,14 +5,44 @@
   "version": "0.1.2",
   "repository": "https://github.com/AckeeCZ/vscode-frontend",
   "publisher": "ackee",
+  "license": "MIT",
   "icon": "images/ackee-logo.png",
+  "galleryBanner": {
+    "color": "#000000",
+    "theme": "dark"
+  },
   "engines": {
     "vscode": "^1.36.0"
   },
   "categories": [
-    "Snippets"
+    "Snippets",
+    "Other"
+  ],
+  "main": "./out/src/extension",
+  "activationEvents": [
+    "onCommand:extension.createComponent"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "extension.createComponent",
+        "title": "Ackee: create component"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.createComponent",
+        "key": "cmd+a cmd+c"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.createComponent",
+          "group": "ackee"
+        }
+      ]
+    },
     "snippets": [
       {
         "language": "javascript",
@@ -23,5 +53,23 @@
         "path": "./snippets/javascriptreact.json"
       }
     ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "tslint -p ./",
+    "watch": "tsc -watch -p ./",
+    "version": "changelog-it && vim CHANGELOG.md && git add CHANGELOG.md"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.21",
+    "@types/vscode": "^1.36.0",
+    "typescript": "^3.3.1",
+    "changelog-it": "github:AckeeCZ/changelog-it"
+  },
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "shelljs": "^0.8.3"
   }
 }
