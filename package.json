@@ -58,12 +58,14 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "lint": "tslint -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "version": "changelog-it && vim CHANGELOG.md && git add CHANGELOG.md"
   },
   "devDependencies": {
     "@types/node": "^10.12.21",
     "@types/vscode": "^1.36.0",
-    "typescript": "^3.3.1"
+    "typescript": "^3.3.1",
+    "changelog-it": "github:AckeeCZ/changelog-it"
   },
   "dependencies": {
     "fs": "0.0.1-security",
