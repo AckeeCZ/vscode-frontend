@@ -29,12 +29,6 @@
         "title": "Ackee: create component"
       }
     ],
-    "keybindings": [
-      {
-        "command": "extension.createComponent",
-        "key": "cmd+a cmd+c"
-      }
-    ],
     "menus": {
       "explorer/context": [
         {
