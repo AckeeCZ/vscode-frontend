@@ -24,5 +24,4 @@ deploy:
     script: vsce publish -p $VS_TOKEN
     skip_cleanup: true
     on:
-      repo: AckeeCZ/vscode-frontend
       tags: true
