@@ -6,7 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 0.2.3 - 2019-07-29
 ### Changed
- - logo
+- logo
 
 ## 0.2.2 - 2019-07-29
 
