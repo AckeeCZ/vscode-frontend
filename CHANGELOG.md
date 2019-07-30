@@ -4,9 +4,14 @@ All notable changes to the "ackee-frontend" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## 0.2.7 - 2019-07-30
+### Fixed
+- fela style template
+
 ## 0.2.6 - 2019-07-29
 ### Removed
 - keyboard shortcut
+
 ### Fixed
 - typo in template
 
