@@ -24,7 +24,7 @@ export default class Model {
         this.createFolder(folderPath);
         this.createFile(folderPath, "index.js", index(name));
         this.createFile(folderPath, `${name}.jsx`, component(name));
-        this.createFile(folderPath, `${name}.styles.js`, styles(name));
+        this.createFile(folderPath, `${name}.styles.js`, styles);
 
         vscode.window.showInformationMessage(
           "The component has been successfuly created."

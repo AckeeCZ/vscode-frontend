@@ -18,4 +18,4 @@ ${name}.propTypes = {
 
 export default connectFela(componentStyles)(${name});\n`;
 
-export const styles = name => `export const ${name} = () => ({});\n`;
+export const styles = "export const container = () => ({});\n";
