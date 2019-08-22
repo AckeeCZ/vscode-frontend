@@ -12,11 +12,15 @@ A set of usefull snippets and commands we use at Ackee for web apps development.
 ## Commands
 
 ### Create component
+*  `Component.jsx` - React stateless component
+* `index.js` - index file to export the React component
+
+### Create Fela component
 
 Creates a folder with following structure:
-*  `Component.jsx` - React stateless component with Fela
+*  `Component.jsx` - React stateless component with `styles` prop
 *  `Component.styles.js` - fela rules
-* `index.js` - index file to export the React component
+* `index.js` - index file to export the React component and wrap it with `connectFela`
 
 #### Usage
 1. Right click to a folder where you want to create a component
