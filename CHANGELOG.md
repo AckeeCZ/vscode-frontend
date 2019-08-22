@@ -4,6 +4,13 @@ All notable changes to the "ackee-frontend" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## 0.3.0 - 2019-08-22
+### Updated
+- renamed current Create component command to "Create Fela component" and moved `connectFela` to `indes.js`
+
+### Added
+- Create component command
+
 ## 0.2.7 - 2019-07-30
 ### Fixed
 - fela style template
