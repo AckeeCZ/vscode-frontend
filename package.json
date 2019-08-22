@@ -20,19 +20,28 @@
   ],
   "main": "./out/src/extension",
   "activationEvents": [
-    "onCommand:extension.createComponent"
+    "onCommand:extension.createComponent",
+    "onCommand:extension.createFelaComponent"
   ],
   "contributes": {
     "commands": [
       {
         "command": "extension.createComponent",
-        "title": "Ackee: create component"
+        "title": "Create component"
+      },
+      {
+        "command": "extension.createFelaComponent",
+        "title": "Create Fela component"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "command": "extension.createComponent",
+          "group": "ackee"
+        },
+        {
+          "command": "extension.createFelaComponent",
           "group": "ackee"
         }
       ]

@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as shell from "shelljs";
 import * as path from "path";
 
-import { index, component, styles } from "./template/component";
+import { index, indexFela, component, felaComponent, styles } from "./template/component";
 
 export default class Model {
   createComponent(contextUri: string) {
@@ -24,6 +24,31 @@ export default class Model {
         this.createFolder(folderPath);
         this.createFile(folderPath, "index.js", index(name));
         this.createFile(folderPath, `${name}.jsx`, component(name));
+
+        vscode.window.showInformationMessage(
+          "The component has been successfuly created."
+        );
+      });
+  }
+
+  createFelaComponent(contextUri: string) {
+    vscode.window
+      .showInputBox({
+        value: "",
+        prompt: "Component name",
+        ignoreFocusOut: true
+      })
+      .then(name => {
+        if (!name) return;
+
+        const workspacePath = vscode.workspace.workspaceFolders[0].uri
+          .toString()
+          .split(":")[1];
+        const folderPath = `${contextUri || workspacePath}/${name}`;
+
+        this.createFolder(folderPath);
+        this.createFile(folderPath, "index.js", indexFela(name));
+        this.createFile(folderPath, `${name}.jsx`, felaComponent(name));
         this.createFile(folderPath, `${name}.styles.js`, styles);
 
         vscode.window.showInformationMessage(

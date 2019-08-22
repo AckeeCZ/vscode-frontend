@@ -12,6 +12,15 @@ export function activate(context: vscode.ExtensionContext) {
       }
     )
   );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "extension.createFelaComponent",
+      (file: vscode.Uri) => {
+        model.createFelaComponent(file && file.fsPath);
+      }
+    )
+  );
 }
 
 export function deactivate() {}

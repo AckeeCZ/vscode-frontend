@@ -1,8 +1,13 @@
-export const index = name => `export { default } from './${name}'\n`;
+export const index = name => `export { default } from './${name}';\n`;
 
-export const component = name => `import { React, PropTypes, connectFela } from '../../dependencies';
+export const indexFela = name => `import { connectFela } from '../../dependencies';
+import ${name} from './${name}';
+import * as styles from './${name}.styles';
 
-import * as componentStyles from './${name}.styles';
+export default connectFela(styles)(${name});
+`;
+
+export const felaComponent = name => `import { React, PropTypes } from '../../dependencies';
 
 const ${name} = ({ styles }) => (
     <div className={styles.container}>
@@ -16,6 +21,20 @@ ${name}.propTypes = {
     }).isRequired
 };
 
-export default connectFela(componentStyles)(${name});\n`;
+export default ${name};
+`;
+
+export const component = name => `import { React, PropTypes } from '../../dependencies';
+
+const ${name} = () => (
+    <>
+        
+    </>
+);
+
+${name}.propTypes = {};
+
+export default ${name};
+`;
 
 export const styles = "export const container = () => ({});\n";
