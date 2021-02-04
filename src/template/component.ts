@@ -57,7 +57,8 @@ ${name}.propTypes = {
 export default ${name};
 `;
 
-export const styles = "export const container = () => ({});\n";
+export const styles = (dependencies: boolean) =>
+  "export const container = () => ({});\n";
 
 export const component = (name: string, dependencies: boolean) => `${
   dependencies

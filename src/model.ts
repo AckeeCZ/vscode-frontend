@@ -1,12 +1,21 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import * as shell from "shelljs";
-import * as path from "path";
 
-import * as templates from "./template/component";
+import * as templatesJavascript from "./template/component";
+import * as templatesTypescript from "./template/componentsTypescrip";
 import config from "./config";
 
 export default class Model {
+  getConfiguration(): vscode.WorkspaceConfiguration {
+    return vscode.workspace.getConfiguration(config.namespace);
+  }
+
+  getTemplates() {
+    const configuration = this.getConfiguration();
+    return configuration.typescript ? templatesTypescript : templatesJavascript;
+  }
+
   createComponent(contextUri: string) {
     vscode.window
       .showInputBox({
@@ -50,7 +59,7 @@ export default class Model {
         this.createFolder(folderPath);
         this.createIndexFile(name, folderPath, true);
         this.createComponentFile(folderPath, name, true);
-        this.createFile(folderPath, `${name}.styles.js`, templates.styles);
+        this.createStyleFile(folderPath, name);
 
         vscode.window.showInformationMessage(
           "The component has been successfuly created."
@@ -59,14 +68,18 @@ export default class Model {
   }
 
   createComponentFile(path: string, name: string, fela: boolean) {
-    const fullName = name + ".jsx";
-    const configuration = vscode.workspace.getConfiguration(config.namespace);
+    const configuration = this.getConfiguration();
+    const templates = this.getTemplates();
+    const fullName = `${name}.${configuration.typescript ? "t" : "j"}sx`;
 
     let content;
-    if (fela && !configuration.felaHooks) {
+    if (fela && !configuration.felaHooks) {
       content = templates.felaComponent(name, configuration.moduleDependencies);
-    } else if (fela && configuration.felaHooks) {
-      content = templates.felaHookComponent(name, configuration.moduleDependencies);
+    } else if (fela && configuration.felaHooks) {
+      content = templates.felaHookComponent(
+        name,
+        configuration.moduleDependencies
+      );
     } else {
       content = templates.component(name, configuration.moduleDependencies);
     }
@@ -74,15 +87,27 @@ export default class Model {
     this.createFile(path, fullName, content);
   }
 
+  createStyleFile(path: string, name: string) {
+    const configuration = this.getConfiguration();
+    const templates = this.getTemplates();
+    const fullName = `${name}.styles.${configuration.typescript ? "t" : "j"}s`;
+
+    this.createFile(
+      path,
+      fullName,
+      templates.styles(configuration.moduleDependencies)
+    );
+  }
+
   createIndexFile(componentName: string, path: string, fela: boolean) {
-    const name = "index.js";
     const configuration = vscode.workspace.getConfiguration(config.namespace);
+    const name = `index.${configuration.typescript ? "t" : "j"}s`;
 
     let content;
     if (!fela || (fela && configuration.felaHooks)) {
-      content = templates.index(componentName);
+      content = templatesJavascript.index(componentName);
     } else {
-      content = templates.indexFela(componentName);
+      content = templatesJavascript.indexFela(componentName);
     }
 
     this.createFile(path, name, content);
