@@ -1,13 +1,19 @@
-export const index = name => `export { default } from './${name}';\n`;
+export const index = (name) => `export { default } from './${name}';\n`;
 
-export const indexFela = name => `import { connectFela } from '../../dependencies';
+export const indexFela = (
+  name
+) => `import { connectFela } from '../../dependencies';
 import ${name} from './${name}';
 import * as styles from './${name}.styles';
 
 export default connectFela(styles)(${name});
 `;
 
-export const felaComponent = name => `import { React, PropTypes } from '../../dependencies';
+export const felaComponent = (name: string, dependencies: boolean) => `${
+  dependencies
+    ? "import { React, PropTypes } from '../../dependencies';"
+    : "import React from 'react';\nimport PropTypes from 'prop-types';"
+}
 
 const ${name} = ({ styles }) => (
     <div className={styles.container}>
@@ -24,7 +30,14 @@ ${name}.propTypes = {
 export default ${name};
 `;
 
-export const component = name => `import { React, PropTypes } from '../../dependencies';
+
+export const styles = "export const container = () => ({});\n";
+
+export const component = (name: string, dependencies: boolean) => `${
+  dependencies
+    ? "import { React, PropTypes } from '../../dependencies';"
+    : "import React from 'react';\nimport PropTypes from 'prop-types';"
+}
 
 const ${name} = () => (
     <>
@@ -36,5 +49,3 @@ ${name}.propTypes = {};
 
 export default ${name};
 `;
-
-export const styles = "export const container = () => ({});\n";

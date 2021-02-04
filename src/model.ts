@@ -3,7 +3,8 @@ import * as fs from "fs";
 import * as shell from "shelljs";
 import * as path from "path";
 
-import { index, indexFela, component, felaComponent, styles } from "./template/component";
+import * as templates from "./template/component";
+import config from "./config";
 
 export default class Model {
   createComponent(contextUri: string) {
@@ -11,9 +12,9 @@ export default class Model {
       .showInputBox({
         value: "",
         prompt: "Component name",
-        ignoreFocusOut: true
+        ignoreFocusOut: true,
       })
-      .then(name => {
+      .then((name) => {
         if (!name) return;
 
         const workspacePath = vscode.workspace.workspaceFolders[0].uri
@@ -22,8 +23,8 @@ export default class Model {
         const folderPath = `${contextUri || workspacePath}/${name}`;
 
         this.createFolder(folderPath);
-        this.createFile(folderPath, "index.js", index(name));
-        this.createFile(folderPath, `${name}.jsx`, component(name));
+        this.createIndexFile(name, folderPath, false);
+        this.createComponentFile(folderPath, name, false);
 
         vscode.window.showInformationMessage(
           "The component has been successfuly created."
@@ -36,9 +37,9 @@ export default class Model {
       .showInputBox({
         value: "",
         prompt: "Component name",
-        ignoreFocusOut: true
+        ignoreFocusOut: true,
       })
-      .then(name => {
+      .then((name) => {
         if (!name) return;
 
         const workspacePath = vscode.workspace.workspaceFolders[0].uri
@@ -47,14 +48,42 @@ export default class Model {
         const folderPath = `${contextUri || workspacePath}/${name}`;
 
         this.createFolder(folderPath);
-        this.createFile(folderPath, "index.js", indexFela(name));
-        this.createFile(folderPath, `${name}.jsx`, felaComponent(name));
-        this.createFile(folderPath, `${name}.styles.js`, styles);
+        this.createIndexFile(name, folderPath, true);
+        this.createComponentFile(folderPath, name, true);
+        this.createFile(folderPath, `${name}.styles.js`, templates.styles);
 
         vscode.window.showInformationMessage(
           "The component has been successfuly created."
         );
       });
+  }
+
+  createComponentFile(path: string, name: string, fela: boolean) {
+    const fullName = name + ".jsx";
+    const configuration = vscode.workspace.getConfiguration(config.namespace);
+
+    let content;
+    if (fela) {
+      content = templates.felaComponent(name, configuration.moduleDependencies);
+    } else {
+      content = templates.component(name, configuration.moduleDependencies);
+    }
+
+    this.createFile(path, fullName, content);
+  }
+
+  createIndexFile(componentName: string, path: string, fela: boolean) {
+    const name = "index.js";
+    const configuration = vscode.workspace.getConfiguration(config.namespace);
+
+    let content;
+    if (!fela || (fela && configuration.felaHooks)) {
+      content = templates.index(componentName);
+    } else {
+      content = templates.indexFela(componentName);
+    }
+
+    this.createFile(path, name, content);
   }
 
   createFolder(path: string) {
