@@ -30,6 +30,32 @@ ${name}.propTypes = {
 export default ${name};
 `;
 
+export const felaHookComponent = (name: string, dependencies: boolean) => `${
+  dependencies
+    ? "import { React, PropTypes } from '../../dependencies';"
+    : "import React from 'react';\nimport PropTypes from 'prop-types';"
+}
+
+import * as rules from './${name}.styles';
+
+const ${name} = () => {
+    const { styles } = useFelaEnhanced(rules);
+
+    return (
+        <div className={styles.container}>
+
+        </div>
+    );
+};
+
+${name}.propTypes = {
+    styles: PropTypes.shape({
+        container: PropTypes.string.isRequired
+    }).isRequired
+};
+
+export default ${name};
+`;
 
 export const styles = "export const container = () => ({});\n";
 

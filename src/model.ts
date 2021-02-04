@@ -63,8 +63,10 @@ export default class Model {
     const configuration = vscode.workspace.getConfiguration(config.namespace);
 
     let content;
-    if (fela) {
+    if (fela && !configuration.felaHooks) {
       content = templates.felaComponent(name, configuration.moduleDependencies);
+    } else if (fela && configuration.felaHooks) {
+      content = templates.felaHookComponent(name, configuration.moduleDependencies);
     } else {
       content = templates.component(name, configuration.moduleDependencies);
     }
