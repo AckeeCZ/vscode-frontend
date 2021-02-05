@@ -2,7 +2,7 @@
   "name": "ackee-frontend",
   "displayName": "Ackee frontend",
   "description": "A set of usefull snippets and commands we use at Ackee for web apps development.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "repository": "https://github.com/AckeeCZ/vscode-frontend",
   "publisher": "ackee",
   "license": "MIT",
@@ -87,8 +87,8 @@
   "devDependencies": {
     "@types/node": "^10.12.21",
     "@types/vscode": "^1.36.0",
-    "typescript": "^3.3.1",
-    "changelog-it": "github:AckeeCZ/changelog-it"
+    "changelog-it": "github:AckeeCZ/changelog-it",
+    "typescript": "^3.3.1"
   },
   "dependencies": {
     "fs": "0.0.1-security",

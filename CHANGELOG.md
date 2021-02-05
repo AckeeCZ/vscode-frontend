@@ -4,12 +4,23 @@ All notable changes to the "ackee-frontend" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## 0.3.0 - 2019-08-22
-### Updated
-- renamed current Create component command to "Create Fela component" and moved `connectFela` to `indes.js`
+## 0.4.0 - 2021-02-05
 
+### Added
+- Settings for scaffolding commands:
+   - module dependencies (whether to load from dependencies.js file or not)
+   - fela hook instead of connect HOC
+   - typescript version of all templates
+
+### Fixed
+- Audit vulnerabilities
+
+## 0.3.0 - 2019-08-22
 ### Added
 - Create component command
+
+### Changed
+- renamed current Create component command to "Create Fela component" and moved `connectFela` to `indes.js`
 
 ## 0.2.7 - 2019-07-30
 ### Fixed
