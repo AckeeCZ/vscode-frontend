@@ -55,7 +55,27 @@
         "language": "javascriptreact",
         "path": "./snippets/javascriptreact.json"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Ackee Frontend",
+      "properties": {
+        "ackeeFrontend.moduleDependencies": {
+          "type": "boolean",
+          "default": true,
+          "description": "If enabled it uses named imports from dependencies.js file of the module."
+        },
+        "ackeeFrontend.felaHooks": {
+          "type": "boolean",
+          "default": true,
+          "description": "If enabled, scaffolded components will use enhanced fela hooks instead of connect HOC."
+        },
+        "ackeeFrontend.typescript": {
+          "type": "boolean",
+          "default": false,
+          "description": "If enabled, scaffolded components will be in TypeScript."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

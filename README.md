@@ -6,21 +6,27 @@ A set of usefull snippets and commands we use at Ackee for web apps development.
 
 ## Features
 
-* Commands for project scaffolding
+* Commands for project scaffolding (typescript supported)
 * React/Fela snippets
+
+## Contents
+
+ - [Commands](#commands)
+ - [Settings](#settings)
+ - [Snippets](#snippets)
 
 ## Commands
 
 ### Create component
-*  `Component.jsx` - React stateless component
-* `index.js` - index file to export the React component
+*  `Component.(j|t)sx` - React stateless component
+* `index.(j|t)s` - index file to export the React component
 
 ### Create Fela component
 
 Creates a folder with following structure:
-*  `Component.jsx` - React stateless component with `styles` prop
-*  `Component.styles.js` - fela rules
-* `index.js` - index file to export the React component and wrap it with `connectFela`
+*  `Component.(j|t)sx` - React stateless component with `styles` prop
+*  `Component.styles.(j|t)s` - fela rules
+* `index.(j|t)s` - index file to export the React component and wrap it with `connectFela`
 
 #### Usage
 1. Right click to a folder where you want to create a component
@@ -30,6 +36,16 @@ Creates a folder with following structure:
 ![Create component example](images/create_component_example.jpg)
 
 > **Note**: The command can also be triggered by a shortcut `cmd+a cmd+c` or by VS Code command line. But in that case the component is created in root directory of a project, because VS Code API does not provide selected folder in the explorer window. See [this issue](https://github.com/Microsoft/vscode/issues/3553) for more info.
+
+## Settings
+
+These settings can be changed in VS Code settings under `ackeeFrontend` namespace.
+
+| Name | Default value | Description |
+|---|---|---|
+| `moduleDependencies` | `true`  | If enabled it uses named imports from dependencies.js file of the module. |
+| `felaHooks`  |  `false` | If enabled, scaffolded components will use enhanced fela hooks instead of connect HOC.  |
+|  `typescript` |  `false` |  If enabled, scaffolded components will be in TypeScript. |
 
 ## Snippets
 

@@ -1,19 +1,29 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import * as shell from "shelljs";
-import * as path from "path";
 
-import { index, indexFela, component, felaComponent, styles } from "./template/component";
+import * as templatesJavascript from "./template/component";
+import * as templatesTypescript from "./template/componentsTypescrip";
+import config from "./config";
 
 export default class Model {
+  getConfiguration(): vscode.WorkspaceConfiguration {
+    return vscode.workspace.getConfiguration(config.namespace);
+  }
+
+  getTemplates() {
+    const configuration = this.getConfiguration();
+    return configuration.typescript ? templatesTypescript : templatesJavascript;
+  }
+
   createComponent(contextUri: string) {
     vscode.window
       .showInputBox({
         value: "",
         prompt: "Component name",
-        ignoreFocusOut: true
+        ignoreFocusOut: true,
       })
-      .then(name => {
+      .then((name) => {
         if (!name) return;
 
         const workspacePath = vscode.workspace.workspaceFolders[0].uri
@@ -22,8 +32,8 @@ export default class Model {
         const folderPath = `${contextUri || workspacePath}/${name}`;
 
         this.createFolder(folderPath);
-        this.createFile(folderPath, "index.js", index(name));
-        this.createFile(folderPath, `${name}.jsx`, component(name));
+        this.createIndexFile(name, folderPath, false);
+        this.createComponentFile(folderPath, name, false);
 
         vscode.window.showInformationMessage(
           "The component has been successfuly created."
@@ -36,9 +46,9 @@ export default class Model {
       .showInputBox({
         value: "",
         prompt: "Component name",
-        ignoreFocusOut: true
+        ignoreFocusOut: true,
       })
-      .then(name => {
+      .then((name) => {
         if (!name) return;
 
         const workspacePath = vscode.workspace.workspaceFolders[0].uri
@@ -47,14 +57,60 @@ export default class Model {
         const folderPath = `${contextUri || workspacePath}/${name}`;
 
         this.createFolder(folderPath);
-        this.createFile(folderPath, "index.js", indexFela(name));
-        this.createFile(folderPath, `${name}.jsx`, felaComponent(name));
-        this.createFile(folderPath, `${name}.styles.js`, styles);
+        this.createIndexFile(name, folderPath, true);
+        this.createComponentFile(folderPath, name, true);
+        this.createStyleFile(folderPath, name);
 
         vscode.window.showInformationMessage(
           "The component has been successfuly created."
         );
       });
+  }
+
+  createComponentFile(path: string, name: string, fela: boolean) {
+    const configuration = this.getConfiguration();
+    const templates = this.getTemplates();
+    const fullName = `${name}.${configuration.typescript ? "t" : "j"}sx`;
+
+    let content;
+    if (fela && !configuration.felaHooks) {
+      content = templates.felaComponent(name, configuration.moduleDependencies);
+    } else if (fela && configuration.felaHooks) {
+      content = templates.felaHookComponent(
+        name,
+        configuration.moduleDependencies
+      );
+    } else {
+      content = templates.component(name, configuration.moduleDependencies);
+    }
+
+    this.createFile(path, fullName, content);
+  }
+
+  createStyleFile(path: string, name: string) {
+    const configuration = this.getConfiguration();
+    const templates = this.getTemplates();
+    const fullName = `${name}.styles.${configuration.typescript ? "t" : "j"}s`;
+
+    this.createFile(
+      path,
+      fullName,
+      templates.styles(configuration.moduleDependencies)
+    );
+  }
+
+  createIndexFile(componentName: string, path: string, fela: boolean) {
+    const configuration = vscode.workspace.getConfiguration(config.namespace);
+    const name = `index.${configuration.typescript ? "t" : "j"}s`;
+
+    let content;
+    if (fela && !configuration.felaHooks) {
+      content = templatesJavascript.indexFela(componentName);
+    } else {
+      content = templatesJavascript.index(componentName);
+    }
+
+    this.createFile(path, name, content);
   }
 
   createFolder(path: string) {
