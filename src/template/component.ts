@@ -32,8 +32,8 @@ export default ${name};
 
 export const felaHookComponent = (name: string, dependencies: boolean) => `${
   dependencies
-    ? "import { React, PropTypes } from '../../dependencies';"
-    : "import React from 'react';\nimport PropTypes from 'prop-types';"
+    ? "import { React, PropTypes, useFelaEnhanced } from '../../dependencies';"
+    : "import React from 'react';\nimport PropTypes from 'prop-types';\nimport { useFelaEnhanced } from 'hooks'"
 }
 
 import * as rules from './${name}.styles';
