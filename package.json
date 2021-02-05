@@ -94,5 +94,9 @@
     "fs": "0.0.1-security",
     "path": "^0.12.7",
     "shelljs": "^0.8.3"
+  },
+  "resolutions": {
+    "yargs-parser": "^20.2.4",
+    "lodash": "^4.17.19"
   }
 }
