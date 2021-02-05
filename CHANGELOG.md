@@ -6,7 +6,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 0.4.0 - 2021-02-05
 
-### Added
+### Added
+
 - Settings for scaffolding commands:
    - module dependencies (whether to load from dependencies.js file or not)
    - fela hook instead of connect HOC
