@@ -108,6 +108,10 @@ export default class Model {
       content = templatesJavascript.index(componentName);
     } else {
       content = templatesJavascript.indexFela(componentName);
+    if (fela && !configuration.felaHooks) {
+        content = templatesJavascript.indexFela(componentName);
+    } else {
+        content = templatesJavascript.index(componentName);
     }
 
     this.createFile(path, name, content);
