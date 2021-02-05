@@ -104,14 +104,10 @@ export default class Model {
     const name = `index.${configuration.typescript ? "t" : "j"}s`;
 
     let content;
-    if (!fela || (fela && configuration.felaHooks)) {
-      content = templatesJavascript.index(componentName);
-    } else {
-      content = templatesJavascript.indexFela(componentName);
     if (fela && !configuration.felaHooks) {
-        content = templatesJavascript.indexFela(componentName);
+      content = templatesJavascript.indexFela(componentName);
     } else {
-        content = templatesJavascript.index(componentName);
+      content = templatesJavascript.index(componentName);
     }
 
     this.createFile(path, name, content);
