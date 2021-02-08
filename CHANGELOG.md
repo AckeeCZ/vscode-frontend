@@ -4,22 +4,25 @@ All notable changes to the "ackee-frontend" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## 0.4.4 - 2021-02-05
-
+## 0.4.5 - 2021-02-08
 ### Fixed
- - Fixed typescript template
+- Fix generating fela index file with dependencies turned off
+
+### Removed
+- Remove useless type definition in `felaHookComponent` template
+
+## 0.4.4 - 2021-02-05
+### Fixed
+- Fixed typescript template
 
 ## 0.4.3 - 2021-02-05
-### Fixed
-
- - Manually fix audit vulnerabilities
 
 ## 0.4.0 - 2021-02-05
 ### Added
-- Settings for scaffolding commands:
-  - module dependencies (whether to load from dependencies.js file or not)
-  - fela hook instead of connect HOC
-  - typescript version of all templates
+- S ettings for scaffolding commands:
+- module dependencies (whether to load from dependencies.js file or not)
+- fela hook instead of connect HOC
+- typescript version of all templates
 
 ### Fixed
 - Audit vulnerabilities
