@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as shell from "shelljs";
 
 import * as templatesJavascript from "./template/component";
-import * as templatesTypescript from "./template/componentsTypescrip";
+import * as templatesTypescript from "./template/componentsTypescript";
 import config from "./config";
 
 export default class Model {
@@ -105,7 +105,7 @@ export default class Model {
 
     let content;
     if (fela && !configuration.felaHooks) {
-      content = templatesJavascript.indexFela(componentName);
+      content = templatesJavascript.indexFela(componentName, configuration.moduleDependencies);
     } else {
       content = templatesJavascript.index(componentName);
     }

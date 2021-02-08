@@ -25,9 +25,7 @@ export const felaHookComponent = (name: string, dependencies: boolean) => `${
 
 import * as rules from './${name}.styles';
 
-export interface ${name}OwnProps {}
-
-type ${name}Props = ${name}OwnProps & FelaWithStylesProps<${name}OwnProps, {}>;
+export interface ${name}Props {}
 
 const ${name}: FunctionComponent<${name}Props> = () => {
     const { styles } = useFelaEnhanced(rules);
