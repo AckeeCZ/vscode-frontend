@@ -105,7 +105,7 @@ export default class Model {
 
     let content;
     if (fela && !configuration.felaHooks) {
-      content = templatesJavascript.indexFela(componentName);
+      content = templatesJavascript.indexFela(componentName, configuration.moduleDependencies);
     } else {
       content = templatesJavascript.index(componentName);
     }

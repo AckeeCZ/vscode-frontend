@@ -1,8 +1,10 @@
 export const index = (name) => `export { default } from './${name}';\n`;
 
-export const indexFela = (
-  name
-) => `import { connectFela } from '../../dependencies';
+export const indexFela = (name, dependencies: boolean) => `${
+  dependencies
+    ? "import { connectFela } from '../../dependencies'"
+    : "import { connect as connectFela } from 'react-fela'"
+};
 import ${name} from './${name}';
 import * as styles from './${name}.styles';
 
