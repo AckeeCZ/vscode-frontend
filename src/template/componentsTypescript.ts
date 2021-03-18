@@ -1,7 +1,7 @@
 export const felaComponent = (name: string, dependencies: boolean) => `${
   dependencies
-    ? "import { React,  FunctionComponent, FelaWithStylesProps } from '../../dependencies';"
-    : "import React, { FunctionComponent } from 'react';\nimport type { FelaWithStylesProps } from 'react-fela';"
+    ? "import { React, FC, FelaWithStylesProps } from '../../dependencies';"
+    : "import React, { FC } from 'react';\nimport type { FelaWithStylesProps } from 'react-fela';"
 }
 
 export interface ${name}OwnProps {}
@@ -19,8 +19,8 @@ export default ${name};
 
 export const felaHookComponent = (name: string, dependencies: boolean) => `${
   dependencies
-    ? "import { React,  FunctionComponent, FelaWithStylesProps, useFelaEnhanced } from '../../dependencies';"
-    : "import React, { FunctionComponent } from 'react';\nimport type { FelaWithStylesProps } from 'react-fela';\nimport { useFelaEnhanced } from 'hooks';"
+    ? "import { React, FC, FelaWithStylesProps, useFelaEnhanced } from '../../dependencies';"
+    : "import React, { FC } from 'react';\nimport type { FelaWithStylesProps } from 'react-fela';\nimport { useFelaEnhanced } from 'hooks';"
 }
 
 import * as rules from './${name}.styles';
@@ -51,13 +51,13 @@ export const container: TRule = () => ({});
 
 export const component = (name: string, dependencies: boolean) => `${
   dependencies
-    ? "import { React, FunctionComponent } from '../../dependencies';"
-    : "import React, { FunctionComponent } from 'react';"
+    ? "import { React, FC } from '../../dependencies';"
+    : "import React, { FC } from 'react';"
 }
 
 export interface ${name}Props {}
 
-const ${name}: FunctionComponent<${name}Props> = () => (
+const ${name}: FC<${name}Props> = () => (
     <>
         
     </>
