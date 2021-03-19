@@ -8,7 +8,7 @@ export interface ${name}OwnProps {}
 
 type ${name}Props = ${name}OwnProps & FelaWithStylesProps<${name}OwnProps, {}>;
 
-const ${name}: FunctionComponent<${name}Props> = ({ styles }) => (
+const ${name}: FC<${name}Props> = ({ styles }) => (
     <div className={styles.container}>
         
     </div>
@@ -27,7 +27,7 @@ import * as rules from './${name}.styles';
 
 export interface ${name}Props {}
 
-const ${name}: FunctionComponent<${name}Props> = () => {
+const ${name}: FC<${name}Props> = () => {
     const { styles } = useFelaEnhanced(rules);
 
     return (
