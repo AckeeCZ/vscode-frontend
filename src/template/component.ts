@@ -6,9 +6,9 @@ export const indexFela = (name, dependencies: boolean) => `${
     : "import { connect as connectFela } from 'react-fela'"
 };
 import ${name} from './${name}';
-import * as styles from './${name}.styles';
+import * as felaRules from './${name}.rules';
 
-export default connectFela(styles)(${name});
+export default connectFela(felaRules)(${name});
 `;
 
 export const felaComponent = (name: string, dependencies: boolean) => `${
@@ -38,10 +38,10 @@ export const felaHookComponent = (name: string, dependencies: boolean) => `${
     : "import React from 'react';\nimport PropTypes from 'prop-types';\nimport { useFelaEnhanced } from 'hooks'"
 }
 
-import * as rules from './${name}.styles';
+import * as felaRules from './${name}.rules';
 
 const ${name} = () => {
-    const { styles } = useFelaEnhanced(rules);
+    const { styles } = useFelaEnhanced(felaRules);
 
     return (
         <div className={styles.container}>
