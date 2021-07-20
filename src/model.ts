@@ -90,7 +90,7 @@ export default class Model {
   createStyleFile(path: string, name: string) {
     const configuration = this.getConfiguration();
     const templates = this.getTemplates();
-    const fullName = `${name}.styles.${configuration.typescript ? "t" : "j"}s`;
+    const fullName = `${name}.rules.${configuration.typescript ? "t" : "j"}s`;
 
     this.createFile(
       path,
@@ -105,7 +105,10 @@ export default class Model {
 
     let content;
     if (fela && !configuration.felaHooks) {
-      content = templatesJavascript.indexFela(componentName, configuration.moduleDependencies);
+      content = templatesJavascript.indexFela(
+        componentName,
+        configuration.moduleDependencies
+      );
     } else {
       content = templatesJavascript.index(componentName);
     }

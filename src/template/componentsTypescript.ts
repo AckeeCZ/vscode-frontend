@@ -23,12 +23,12 @@ export const felaHookComponent = (name: string, dependencies: boolean) => `${
     : "import React, { FC } from 'react';\nimport { useFelaEnhanced } from 'hooks';"
 }
 
-import * as rules from './${name}.styles';
+import * as felaRules from './${name}.rules';
 
 export interface ${name}Props {}
 
 const ${name}: FC<${name}Props> = () => {
-    const { styles } = useFelaEnhanced(rules);
+    const { styles } = useFelaEnhanced(felaRules);
 
     return (
         <div className={styles.container}>
