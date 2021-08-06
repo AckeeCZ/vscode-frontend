@@ -1,12 +1,9 @@
 name: Deploy
 
-# on:
-#   push:
-#     tags:
-#       - "*"
 on:
   push:
-    branches: [master]
+    tags:
+      - "*"
 
 jobs:
   build:
@@ -25,18 +22,6 @@ jobs:
 
       - name: Prepublish
         run: npm run vscode:prepublish
-
-      - name: Create a release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-          file: "*.vsix"
 
       - name: Deploy to marketplace
         run: vsce publish -p ${{ secrets.VS_TOKEN }}
