@@ -1,0 +1,30 @@
+name: Deploy
+
+# on:
+#   push:
+#     tags:
+#       - "*"
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install
+        run: npm install -g vsce && npm install
+
+      - name: Build
+        run: npm ci
+
+      - name: Prepublish
+        run: npm run vscode:prepublish
+
+      - name: Deploy
+        run: vsce publish -p $VS_TOKEN
