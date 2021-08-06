@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: "14"
 
       - name: Install
         run: npm install -g vsce && npm install
@@ -27,4 +27,4 @@ jobs:
         run: npm run vscode:prepublish
 
       - name: Deploy
-        run: vsce publish -p $VS_TOKEN
+        run: vsce publish -p ${{ secrets.VS_TOKEN }}
