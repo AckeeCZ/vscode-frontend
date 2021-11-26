@@ -8,11 +8,13 @@ export interface ${name}OwnProps {}
 
 type ${name}Props = ${name}OwnProps & FelaWithStylesProps<${name}OwnProps, {}>;
 
-export const ${name} = ({ styles }: ${name}Props) => (
-    <div className={styles.container}>
-        
-    </div>
-);
+export const ${name} = ({ styles }: ${name}Props) => {
+    return (
+      <div className={styles.container}>
+
+      </div>
+    );  
+};
 `;
 
 export const felaHookComponent = (name: string, dependencies: boolean) => `${
@@ -53,9 +55,9 @@ export const component = (name: string, dependencies: boolean) => `${
 
 export interface ${name}Props {}
 
-export const ${name} = ({}: ${name}Props) => (
-    <>
-        
-    </>
-);
+export const ${name} = ({}: ${name}Props) => {
+  return (
+
+  );  
+};
 `;

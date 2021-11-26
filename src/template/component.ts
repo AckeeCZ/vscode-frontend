@@ -17,11 +17,13 @@ export const felaComponent = (name: string, dependencies: boolean) => `${
     : "import React from 'react';\nimport PropTypes from 'prop-types';"
 }
 
-const ${name} = ({ styles }) => (
+const ${name} = ({ styles }) => {
+  return (
     <div className={styles.container}>
         
     </div>
-);
+  );
+};
 
 ${name}.propTypes = {
     styles: PropTypes.shape({
@@ -68,11 +70,11 @@ export const component = (name: string, dependencies: boolean) => `${
     : "import React from 'react';\nimport PropTypes from 'prop-types';"
 }
 
-const ${name} = () => (
-    <>
-        
-    </>
-);
+const ${name} = () => {
+  return (
+    
+  );
+};
 
 ${name}.propTypes = {};
 
