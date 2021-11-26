@@ -11,14 +11,17 @@
     "color": "#000000",
     "theme": "dark"
   },
+  "sideEffect": false,
   "engines": {
-    "vscode": "^1.36.0"
+    "vscode": "^1.62.0",
+    "node": "^14.16.0"
   },
   "categories": [
     "Snippets",
     "Other"
   ],
-  "main": "./out/src/extension",
+  "source": "./src/extension.ts",
+  "main": "./out/extension.js",
   "activationEvents": [
     "onCommand:extension.createComponent",
     "onCommand:extension.createFelaComponent"
@@ -77,38 +80,38 @@
         "ackeeFrontend.typescriptFelaTheme": {
           "type": "boolean",
           "default": false,
-          "description": "If enabled, scaffolded styles of components will have `TRuleWithTheme` instead of simple `TRule` (`typescript` option must be enabled)"
+          "description": "If enabled, scaffolded styles of components will have `TRuleWithTheme` instead of simple `TRule` (TypeScript option must be enabled)"
         },
         "ackeeFrontend.typescriptFelaExtendProp": {
           "type": "boolean",
           "default": false,
-          "description": "If enabled, scaffolded interfaces of components will have `extend` prop.  (`typescript` option must enabled)."
+          "description": "If enabled, scaffolded interfaces of components will have `extend` prop.  (TypeScript option must enabled)."
         }
       }
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn build-base --minify",
-    "clean": "rm -rf out *.vsix",
-    "build-base": "yarn clean; esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
-    "build": "yarn build-base --sourcemap",
-    "build-watch": "yarn build-base --sourcemap --watch",
-    "test-compile": "tsc -p ./",
-    "version": "changelog-it && code --wait CHANGELOG.md && git add CHANGELOG.md",
-    "package": "vsce package"
+    "clean": "rm -rf out *.vslx",
+    "vscode:prepublish": "yarn build",
+    "build": "yarn clean && parcel build",
+    "watch": "parcel watch",
+    "check": "tsc --noEmit",
+    "package": "vsce package --yarn",
+    "version": "changelog-it && code --wait CHANGELOG.md && git add CHANGELOG.md"
   },
   "devDependencies": {
-    "@types/node": "^10.12.21",
-    "@types/vscode": "^1.36.0",
+    "@types/node": "^14.16.0",
+    "@types/shelljs": "^0.8.9",
+    "@types/vscode": "^1.62.0",
     "changelog-it": "github:AckeeCZ/changelog-it",
-    "esbuild": "^0.13.15",
-    "typescript": "^3.3.1",
+    "parcel": "^2.0.1",
+    "typescript": "^4.5.2",
     "vsce": "^2.5.0"
   },
   "dependencies": {
     "fs": "0.0.1-security",
     "path": "^0.12.7",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.4"
   },
   "resolutions": {
     "yargs-parser": "^20.2.4",
