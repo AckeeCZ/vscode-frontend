@@ -1,14 +1,14 @@
-export const index = (name) => `export { default } from './${name}';\n`;
+export const index = (name) => `export * from './${name}';\n`;
 
 export const indexFela = (name, dependencies: boolean) => `${
   dependencies
     ? "import { connectFela } from '../../dependencies'"
     : "import { connect as connectFela } from 'react-fela'"
 };
-import ${name} from './${name}';
+import { ${name} as ${name}Own } from './${name}';
 import * as felaRules from './${name}.rules';
 
-export default connectFela(felaRules)(${name});
+export const ${name} = connectFela(felaRules)(${name}Own);
 `;
 
 export const felaComponent = (name: string, dependencies: boolean) => `${
@@ -17,7 +17,7 @@ export const felaComponent = (name: string, dependencies: boolean) => `${
     : "import React from 'react';\nimport PropTypes from 'prop-types';"
 }
 
-const ${name} = ({ styles }) => {
+export const ${name} = ({ styles }) => {
   return (
     <div className={styles.container}>
         
@@ -30,8 +30,6 @@ ${name}.propTypes = {
         container: PropTypes.string.isRequired
     }).isRequired
 };
-
-export default ${name};
 `;
 
 export const felaHookComponent = (name: string, dependencies: boolean) => `${
@@ -42,7 +40,7 @@ export const felaHookComponent = (name: string, dependencies: boolean) => `${
 
 import * as felaRules from './${name}.rules';
 
-const ${name} = () => {
+export const ${name} = () => {
     const { styles } = useFelaEnhanced(felaRules);
 
     return (
@@ -57,8 +55,6 @@ ${name}.propTypes = {
         container: PropTypes.string.isRequired
     }).isRequired
 };
-
-export default ${name};
 `;
 
 export const styles = (dependencies: boolean) =>
@@ -70,13 +66,13 @@ export const component = (name: string, dependencies: boolean) => `${
     : "import React from 'react';\nimport PropTypes from 'prop-types';"
 }
 
-const ${name} = () => {
+export const ${name} = () => {
   return (
-    
+    <>
+
+    </>
   );
 };
 
 ${name}.propTypes = {};
-
-export default ${name};
 `;
