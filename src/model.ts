@@ -74,11 +74,18 @@ export default class Model {
 
     let content;
     if (fela && !configuration.felaHooks) {
-      content = templates.felaComponent(name, configuration.moduleDependencies);
+      content = templates.felaComponent(
+        name,
+        configuration.moduleDependencies,
+        configuration.typescriptFelaTheme,
+        configuration.typescriptFelaExtendProp
+      );
     } else if (fela && configuration.felaHooks) {
       content = templates.felaHookComponent(
         name,
-        configuration.moduleDependencies
+        configuration.moduleDependencies,
+        configuration.typescriptFelaTheme,
+        configuration.typescriptFelaExtendProp
       );
     } else {
       content = templates.component(name, configuration.moduleDependencies);

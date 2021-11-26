@@ -1,12 +1,49 @@
-export const felaComponent = (name: string, dependencies: boolean) => `${
+const getExtendProp = (
+  typescriptFelaTheme: boolean,
+  typescriptFelaExtendProp: boolean
+) =>
+  typescriptFelaExtendProp
+    ? `extend?: ${
+        typescriptFelaTheme
+          ? "RulesExtend<typeof felaRules>;"
+          : "Partial<Record<keyof typeof felaRules, TRule>>;"
+      }`
+    : "";
+
+const getExtendPropImport = (
+  typescriptFelaTheme: boolean,
+  typescriptFelaExtendProp: boolean
+) =>
+  typescriptFelaExtendProp
+    ? typescriptFelaTheme
+      ? `import type { RulesExtend } from 'styles/theme';`
+      : "import type { TRule } from 'fela';"
+    : "";
+
+export const felaComponent = (
+  name: string,
+  dependencies: boolean,
+  typescriptFelaTheme: boolean,
+  typescriptFelaExtendProp: boolean
+) => `${
   dependencies
     ? "import { React, FelaWithStylesProps } from '../../dependencies';"
     : "import React from 'react';\nimport type { FelaWithStylesProps } from 'react-fela';"
 }
+${getExtendPropImport(typescriptFelaTheme, typescriptFelaExtendProp)}
+${
+  typescriptFelaExtendProp
+    ? `import * as felaRules from './${name}.rules';`
+    : ""
+}
 
-export interface ${name}OwnProps {}
+export interface ${name}OwnProps {
+  ${getExtendProp(typescriptFelaTheme, typescriptFelaExtendProp)}
+}
 
-type ${name}Props = ${name}OwnProps & FelaWithStylesProps<${name}OwnProps, {}>;
+interface ${name}Props extends FelaWithStylesProps<${name}OwnProps, ${
+  typescriptFelaExtendProp ? "typeof felaRules" : "{}"
+}>, ${name}OwnProps {}
 
 export const ${name} = ({ styles }: ${name}Props) => {
     return (
@@ -17,18 +54,30 @@ export const ${name} = ({ styles }: ${name}Props) => {
 };
 `;
 
-export const felaHookComponent = (name: string, dependencies: boolean) => `${
+export const felaHookComponent = (
+  name: string,
+  dependencies: boolean,
+  typescriptFelaTheme: boolean,
+  typescriptFelaExtendProp: boolean
+) => `${
   dependencies
     ? "import { React, useFelaEnhanced } from '../../dependencies';"
     : "import React from 'react';\nimport { useFelaEnhanced } from 'hooks';"
 }
+${getExtendPropImport(typescriptFelaTheme, typescriptFelaExtendProp)}
 
 import * as felaRules from './${name}.rules';
 
-export interface ${name}Props {}
+export interface ${name}Props {
+  ${getExtendProp(typescriptFelaTheme, typescriptFelaExtendProp)}
+}
 
-export const ${name} = ({}: ${name}Props) => {
-    const { styles } = useFelaEnhanced(felaRules);
+export const ${name} = ({ ${
+  typescriptFelaExtendProp ? "extend" : ""
+} }: ${name}Props) => {
+    const { styles } = useFelaEnhanced(felaRules${
+      typescriptFelaExtendProp ? `, { extend }` : ""
+    });
 
     return (
         <div className={styles.container}>

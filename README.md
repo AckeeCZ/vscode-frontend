@@ -46,7 +46,8 @@ These settings can be changed in VS Code settings under `ackeeFrontend` namespac
 | `moduleDependencies` | `true`  | If enabled it uses named imports from dependencies.js file of the module. |
 | `felaHooks`  |  `false` | If enabled, scaffolded components will use enhanced fela hooks instead of connect HOC.  |
 |  `typescript` |  `false` |  If enabled, scaffolded components will be in TypeScript. |
-| `typescriptFelaTheme`  |  `false` | If enabled, scaffolded styles of components will have `TRuleWithTheme` instead of simple `TRule` (`typescript` option must be `true`).  |
+| `typescriptFelaTheme`  |  `false` | If enabled, scaffolded styles of components will have `TRuleWithTheme` instead of simple `TRule` (`typescript` option must be enabled).  |
+| `typescriptFelaExtendProp`  |  `false` | If enabled, scaffolded interfaces of components will have `extend` prop.  (`typescript` option must enabled).  |
 
 ## Snippets
 
