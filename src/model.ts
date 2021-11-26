@@ -16,6 +16,16 @@ export default class Model {
     return configuration.typescript ? templatesTypescript : templatesJavascript;
   }
 
+  getWorkspacePath() {
+    const workspaces = vscode.workspace.workspaceFolders;
+
+    if (workspaces) {
+      return workspaces[0].uri.toString().split(":")[1];
+    }
+
+    return null;
+  }
+
   createComponent(contextUri: string) {
     vscode.window
       .showInputBox({
@@ -26,9 +36,7 @@ export default class Model {
       .then((name) => {
         if (!name) return;
 
-        const workspacePath = vscode.workspace.workspaceFolders[0].uri
-          .toString()
-          .split(":")[1];
+        const workspacePath = this.getWorkspacePath();
         const folderPath = `${contextUri || workspacePath}/${name}`;
 
         this.createFolder(folderPath);
@@ -51,9 +59,7 @@ export default class Model {
       .then((name) => {
         if (!name) return;
 
-        const workspacePath = vscode.workspace.workspaceFolders[0].uri
-          .toString()
-          .split(":")[1];
+        const workspacePath = this.getWorkspacePath();
         const folderPath = `${contextUri || workspacePath}/${name}`;
 
         this.createFolder(folderPath);
@@ -134,7 +140,7 @@ export default class Model {
     fs.writeFile(`${path}/${name}`, content, this.handleError);
   }
 
-  handleError(error) {
+  handleError(error: any) {
     if (error) {
       vscode.window.showErrorMessage(error);
     }

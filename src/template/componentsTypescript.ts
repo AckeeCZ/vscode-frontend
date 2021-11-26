@@ -31,19 +31,13 @@ export const felaComponent = (
     : "import React from 'react';\nimport type { FelaWithStylesProps } from 'react-fela';"
 }
 ${getExtendPropImport(typescriptFelaTheme, typescriptFelaExtendProp)}
-${
-  typescriptFelaExtendProp
-    ? `import * as felaRules from './${name}.rules';`
-    : ""
-}
+import * as felaRules from './${name}.rules';
 
 export interface ${name}OwnProps {
   ${getExtendProp(typescriptFelaTheme, typescriptFelaExtendProp)}
 }
 
-interface ${name}Props extends FelaWithStylesProps<${name}OwnProps, ${
-  typescriptFelaExtendProp ? "typeof felaRules" : "{}"
-}>, ${name}OwnProps {}
+interface ${name}Props extends FelaWithStylesProps<${name}OwnProps, typeof felaRules> {}
 
 export const ${name} = ({ styles }: ${name}Props) => {
     return (

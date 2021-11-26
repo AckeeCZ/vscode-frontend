@@ -1,6 +1,6 @@
-export const index = (name) => `export * from './${name}';\n`;
+export const index = (name: string) => `export * from './${name}';\n`;
 
-export const indexFela = (name, dependencies: boolean) => `${
+export const indexFela = (name: string, dependencies: boolean) => `${
   dependencies
     ? "import { connectFela } from '../../dependencies'"
     : "import { connect as connectFela } from 'react-fela'"
@@ -57,8 +57,7 @@ ${name}.propTypes = {
 };
 `;
 
-export const styles = (dependencies: boolean) =>
-  "export const container = () => ({});\n";
+export const styles = () => "export const container = () => ({});\n";
 
 export const component = (name: string, dependencies: boolean) => `${
   dependencies
