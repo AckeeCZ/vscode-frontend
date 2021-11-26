@@ -1,7 +1,7 @@
 {
   "name": "ackee-frontend",
   "displayName": "Ackee frontend",
-  "description": "A set of usefull snippets and commands we use at Ackee for web apps development.",
+  "description": "A set of useful snippets and commands we use at Ackee for web apps development.",
   "version": "0.4.9",
   "repository": "https://github.com/AckeeCZ/vscode-frontend",
   "publisher": "ackee",
@@ -73,15 +73,26 @@
           "type": "boolean",
           "default": false,
           "description": "If enabled, scaffolded components will be in TypeScript."
+        },
+        "ackeeFrontend.typescriptFelaTheme": {
+          "type": "boolean",
+          "default": false,
+          "description": "If enabled, scaffolded styles of components will have `TRuleWithTheme` instead of simple `TRule` (`typescript` option must be enabled)"
+        },
+        "ackeeFrontend.typescriptFelaExtendProp": {
+          "type": "boolean",
+          "default": false,
+          "description": "If enabled, scaffolded interfaces of components will have `extend` prop.  (`typescript` option must enabled)."
         }
       }
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run build-base -- --minify",
-    "build-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
-    "build": "npm run build-base -- --sourcemap",
-    "build-watch": "npm run build-base -- --sourcemap --watch",
+    "vscode:prepublish": "yarn build-base --minify",
+    "clean": "rm -rf out *.vsix",
+    "build-base": "yarn clean; esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+    "build": "yarn build-base --sourcemap",
+    "build-watch": "yarn build-base --sourcemap --watch",
     "test-compile": "tsc -p ./",
     "version": "changelog-it && code --wait CHANGELOG.md && git add CHANGELOG.md",
     "package": "vsce package"
