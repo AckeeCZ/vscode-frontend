@@ -38,13 +38,22 @@ export const ${name} = ({}: ${name}Props) => {
 };
 `;
 
-export const styles = (dependencies: boolean) => `${
-  dependencies
-    ? "import { TRule } from '../../dependencies';\n"
-    : "import type { TRule } from 'fela';"
+export const styles = (
+  dependencies: boolean,
+  typescriptFelaTheme: boolean
+) => `${
+  typescriptFelaTheme
+    ? `import type { TRuleWithTheme } from '${
+        dependencies ? "../../dependencies" : "styles/theme"
+      }';\n`
+    : `import type { TRule } from '${
+        dependencies ? "../../dependencies" : "fela"
+      }';`
 }
 
-export const container: TRule = () => ({});
+export const container: ${
+  typescriptFelaTheme ? "TRuleWithTheme" : "TRule"
+} = () => ({});
 `;
 
 export const component = (name: string, dependencies: boolean) => `${

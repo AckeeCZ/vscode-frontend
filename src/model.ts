@@ -95,7 +95,10 @@ export default class Model {
     this.createFile(
       path,
       fullName,
-      templates.styles(configuration.moduleDependencies)
+      templates.styles(
+        configuration.moduleDependencies,
+        configuration.typescriptFelaTheme
+      )
     );
   }
 
