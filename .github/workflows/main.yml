@@ -15,7 +15,7 @@ jobs:
           node-version: "14"
 
       - name: Install
-        run: yarn
+        run: yarn install --frozen-lockfile
 
       - name: Build & Prepublish
         run: yarn vscode:prepublish
