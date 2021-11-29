@@ -27,8 +27,8 @@ export const felaComponent = (
   typescriptFelaExtendProp: boolean
 ) => `${
   dependencies
-    ? "import { React, FelaWithStylesProps } from '../../dependencies';"
-    : "import React from 'react';\nimport type { FelaWithStylesProps } from 'react-fela';"
+    ? "import { FelaWithStylesProps } from '../../dependencies';"
+    : "import type { FelaWithStylesProps } from 'react-fela';"
 }
 ${getExtendPropImport(typescriptFelaTheme, typescriptFelaExtendProp)}
 import * as felaRules from './${name}.rules';
@@ -55,8 +55,8 @@ export const felaHookComponent = (
   typescriptFelaExtendProp: boolean
 ) => `${
   dependencies
-    ? "import { React, useFelaEnhanced } from '../../dependencies';"
-    : "import React from 'react';\nimport { useFelaEnhanced } from 'hooks';"
+    ? "import { useFelaEnhanced } from '../../dependencies';"
+    : "import { useFelaEnhanced } from 'hooks';"
 }
 ${getExtendPropImport(typescriptFelaTheme, typescriptFelaExtendProp)}
 
@@ -100,9 +100,7 @@ export const container: ${
 `;
 
 export const component = (name: string, dependencies: boolean) => `${
-  dependencies
-    ? "import { React } from '../../dependencies';"
-    : "import React from 'react';"
+  dependencies ? "import { React } from '../../dependencies';" : ""
 }
 
 export interface ${name}Props {}
