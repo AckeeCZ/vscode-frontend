@@ -1,40 +1,31 @@
-const getExtendProp = (
-  typescriptFelaTheme: boolean,
-  typescriptFelaExtendProp: boolean
-) =>
-  typescriptFelaExtendProp
+import type { Configuration } from "../types";
+
+const getExtendProp = (config: Configuration) =>
+  config.typescriptFelaExtendProp
     ? `extend?: ${
-        typescriptFelaTheme
+        config.typescriptFelaTheme
           ? "RulesExtend<typeof felaRules>;"
           : "Partial<Record<keyof typeof felaRules, TRule>>;"
       }`
     : "";
 
-const getExtendPropImport = (
-  typescriptFelaTheme: boolean,
-  typescriptFelaExtendProp: boolean
-) =>
-  typescriptFelaExtendProp
-    ? typescriptFelaTheme
+const getExtendPropImport = (config: Configuration) =>
+  config.typescriptFelaExtendProp
+    ? config.typescriptFelaTheme
       ? `import type { RulesExtend } from 'styles/theme';`
       : "import type { TRule } from 'fela';"
     : "";
 
-export const felaComponent = (
-  name: string,
-  dependencies: boolean,
-  typescriptFelaTheme: boolean,
-  typescriptFelaExtendProp: boolean
-) => `${
-  dependencies
+export const felaComponent = (name: string, config: Configuration) => `${
+  config.moduleDependencies
     ? "import { FelaWithStylesProps } from '../../dependencies';"
     : "import type { FelaWithStylesProps } from 'react-fela';"
 }
-${getExtendPropImport(typescriptFelaTheme, typescriptFelaExtendProp)}
+${getExtendPropImport(config)}
 import * as felaRules from './${name}.rules';
 
 export interface ${name}OwnProps {
-  ${getExtendProp(typescriptFelaTheme, typescriptFelaExtendProp)}
+  ${getExtendProp(config)}
 }
 
 interface ${name}Props extends FelaWithStylesProps<${name}OwnProps, typeof felaRules> {}
@@ -48,29 +39,24 @@ export const ${name} = ({ styles }: ${name}Props) => {
 };
 `;
 
-export const felaHookComponent = (
-  name: string,
-  dependencies: boolean,
-  typescriptFelaTheme: boolean,
-  typescriptFelaExtendProp: boolean
-) => `${
-  dependencies
+export const felaHookComponent = (name: string, config: Configuration) => `${
+  config.moduleDependencies
     ? "import { useFelaEnhanced } from '../../dependencies';"
     : "import { useFelaEnhanced } from 'hooks';"
 }
-${getExtendPropImport(typescriptFelaTheme, typescriptFelaExtendProp)}
+${getExtendPropImport(config)}
 
 import * as felaRules from './${name}.rules';
 
 export interface ${name}Props {
-  ${getExtendProp(typescriptFelaTheme, typescriptFelaExtendProp)}
+  ${getExtendProp(config)}
 }
 
 export const ${name} = ({ ${
-  typescriptFelaExtendProp ? "extend" : ""
+  config.typescriptFelaExtendProp ? "extend" : ""
 } }: ${name}Props) => {
     const { styles } = useFelaEnhanced(felaRules${
-      typescriptFelaExtendProp ? `, { extend }` : ""
+      config.typescriptFelaExtendProp ? `, { extend }` : ""
     });
 
     return (
@@ -81,26 +67,23 @@ export const ${name} = ({ ${
 };
 `;
 
-export const styles = (
-  dependencies: boolean,
-  typescriptFelaTheme: boolean
-) => `${
-  typescriptFelaTheme
+export const styles = (config: Configuration) => `${
+  config.typescriptFelaTheme
     ? `import type { TRuleWithTheme } from '${
-        dependencies ? "../../dependencies" : "styles/theme"
+        config.moduleDependencies ? "../../dependencies" : "styles/theme"
       }';\n`
     : `import type { TRule } from '${
-        dependencies ? "../../dependencies" : "fela"
+        config.moduleDependencies ? "../../dependencies" : "fela"
       }';`
 }
 
 export const container: ${
-  typescriptFelaTheme ? "TRuleWithTheme" : "TRule"
+  config.typescriptFelaTheme ? "TRuleWithTheme" : "TRule"
 } = () => ({});
 `;
 
-export const component = (name: string, dependencies: boolean) => `${
-  dependencies ? "import { React } from '../../dependencies';" : ""
+export const component = (name: string, config: Configuration) => `${
+  config.moduleDependencies ? "import { React } from '../../dependencies';" : ""
 }
 
 export interface ${name}Props {}

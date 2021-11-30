@@ -1,7 +1,9 @@
+import type { Configuration } from "../types";
+
 export const index = (name: string) => `export * from './${name}';\n`;
 
-export const indexFela = (name: string, dependencies: boolean) => `${
-  dependencies
+export const indexFela = (name: string, config: Configuration) => `${
+  config.moduleDependencies
     ? "import { connectFela } from '../../dependencies'"
     : "import { connect as connectFela } from 'react-fela'"
 };
@@ -11,8 +13,8 @@ import * as felaRules from './${name}.rules';
 export const ${name} = connectFela(felaRules)(${name}Own);
 `;
 
-export const felaComponent = (name: string, dependencies: boolean) => `${
-  dependencies
+export const felaComponent = (name: string, config: Configuration) => `${
+  config.moduleDependencies
     ? "import { PropTypes } from '../../dependencies';"
     : "import PropTypes from 'prop-types';"
 }
@@ -32,8 +34,8 @@ ${name}.propTypes = {
 };
 `;
 
-export const felaHookComponent = (name: string, dependencies: boolean) => `${
-  dependencies
+export const felaHookComponent = (name: string, config: Configuration) => `${
+  config.moduleDependencies
     ? "import { PropTypes, useFelaEnhanced } from '../../dependencies';"
     : "import PropTypes from 'prop-types';\nimport { useFelaEnhanced } from 'hooks'"
 }
@@ -59,8 +61,8 @@ ${name}.propTypes = {
 
 export const styles = () => "export const container = () => ({});\n";
 
-export const component = (name: string, dependencies: boolean) => `${
-  dependencies
+export const component = (name: string, config: Configuration) => `${
+  config.moduleDependencies
     ? "import { PropTypes } from '../../dependencies';"
     : "import PropTypes from 'prop-types';"
 }

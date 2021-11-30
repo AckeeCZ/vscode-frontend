@@ -5,10 +5,11 @@ import * as shell from "shelljs";
 import * as templatesJavascript from "./template/component";
 import * as templatesTypescript from "./template/componentsTypescript";
 import config from "./config";
+import type { Configuration } from "./types";
 
 export default class Model {
-  getConfiguration(): vscode.WorkspaceConfiguration {
-    return vscode.workspace.getConfiguration(config.namespace);
+  getConfiguration() {
+    return vscode.workspace.getConfiguration(config.namespace) as Configuration;
   }
 
   getTemplates() {
@@ -80,21 +81,11 @@ export default class Model {
 
     let content;
     if (fela && !configuration.felaHooks) {
-      content = templates.felaComponent(
-        name,
-        configuration.moduleDependencies,
-        configuration.typescriptFelaTheme,
-        configuration.typescriptFelaExtendProp
-      );
+      content = templates.felaComponent(name, configuration);
     } else if (fela && configuration.felaHooks) {
-      content = templates.felaHookComponent(
-        name,
-        configuration.moduleDependencies,
-        configuration.typescriptFelaTheme,
-        configuration.typescriptFelaExtendProp
-      );
+      content = templates.felaHookComponent(name, configuration);
     } else {
-      content = templates.component(name, configuration.moduleDependencies);
+      content = templates.component(name, configuration);
     }
 
     this.createFile(path, fullName, content);
@@ -105,26 +96,16 @@ export default class Model {
     const templates = this.getTemplates();
     const fullName = `${name}.rules.${configuration.typescript ? "t" : "j"}s`;
 
-    this.createFile(
-      path,
-      fullName,
-      templates.styles(
-        configuration.moduleDependencies,
-        configuration.typescriptFelaTheme
-      )
-    );
+    this.createFile(path, fullName, templates.styles(configuration));
   }
 
   createIndexFile(componentName: string, path: string, fela: boolean) {
-    const configuration = vscode.workspace.getConfiguration(config.namespace);
+    const configuration = this.getConfiguration();
     const name = `index.${configuration.typescript ? "t" : "j"}s`;
 
     let content;
     if (fela && !configuration.felaHooks) {
-      content = templatesJavascript.indexFela(
-        componentName,
-        configuration.moduleDependencies
-      );
+      content = templatesJavascript.indexFela(componentName, configuration);
     } else {
       content = templatesJavascript.index(componentName);
     }
