@@ -1,34 +1,64 @@
-export const felaComponent = (name: string, dependencies: boolean) => `${
-  dependencies
-    ? "import { React, FC, FelaWithStylesProps } from '../../dependencies';"
-    : "import React, { FC } from 'react';\nimport type { FelaWithStylesProps } from 'react-fela';"
+import type { Configuration } from "../types";
+
+const getExtendProp = (config: Configuration) =>
+  config.typescriptFelaExtendProp
+    ? `extend?: ${
+        config.typescriptFelaTheme
+          ? "RulesExtend<typeof felaRules>;"
+          : "Partial<Record<keyof typeof felaRules, TRule>>;"
+      }`
+    : "";
+
+const getExtendPropImport = ({ typescriptFelaExtendProp, typescriptFelaTheme }: Configuration) => {
+  if (!typescriptFelaExtendProp) {
+    return "";
+  }
+
+  return typescriptFelaTheme
+    ? `import type { RulesExtend } from 'styles/theme';`
+    : "import type { TRule } from 'fela';";
+};
+
+export const felaComponent = (name: string, config: Configuration) => `${
+  config.moduleDependencies
+    ? `import {${config.includeReactImport ? " React," : ""} FelaWithStylesProps } from '../../dependencies';`
+    : `${
+        config.includeReactImport ? `import React from 'react'\n` : ""
+      }import type { FelaWithStylesProps } from 'react-fela';`
+}
+${getExtendPropImport(config)}
+import * as felaRules from './${name}.rules';
+
+export interface ${name}OwnProps {
+  ${getExtendProp(config)}
 }
 
-export interface ${name}OwnProps {}
+interface ${name}Props extends FelaWithStylesProps<${name}OwnProps, typeof felaRules> {}
 
-type ${name}Props = ${name}OwnProps & FelaWithStylesProps<${name}OwnProps, {}>;
+export const ${name} = ({ styles }: ${name}Props) => {
+    return (
+      <div className={styles.container}>
 
-const ${name}: FC<${name}Props> = ({ styles }) => (
-    <div className={styles.container}>
-        
-    </div>
-);
-
-export default ${name};
+      </div>
+    );  
+};
 `;
 
-export const felaHookComponent = (name: string, dependencies: boolean) => `${
-  dependencies
-    ? "import { React, FC, useFelaEnhanced } from '../../dependencies';"
-    : "import React, { FC } from 'react';\nimport { useFelaEnhanced } from 'hooks';"
+export const felaHookComponent = (name: string, config: Configuration) => `${
+  config.moduleDependencies
+    ? `import {${config.includeReactImport ? " React," : ""} useFelaEnhanced } from '../../dependencies';`
+    : `${config.includeReactImport ? `import React from 'react';\n` : ""}import { useFelaEnhanced } from 'hooks';`
 }
+${getExtendPropImport(config)}
 
 import * as felaRules from './${name}.rules';
 
-export interface ${name}Props {}
+export interface ${name}Props {
+  ${getExtendProp(config)}
+}
 
-const ${name}: FC<${name}Props> = () => {
-    const { styles } = useFelaEnhanced(felaRules);
+export const ${name} = ({ ${config.typescriptFelaExtendProp ? "extend" : ""} }: ${name}Props) => {
+    const { styles } = useFelaEnhanced(felaRules${config.typescriptFelaExtendProp ? `, { extend }` : ""});
 
     return (
         <div className={styles.container}>
@@ -36,32 +66,32 @@ const ${name}: FC<${name}Props> = () => {
         </div>
     );
 };
-
-export default ${name};
 `;
 
-export const styles = (dependencies: boolean) => `${
-  dependencies
-    ? "import { TRule } from '../../dependencies';\n"
-    : "import type { TRule } from 'fela';"
+export const styles = (config: Configuration) => `${
+  config.typescriptFelaTheme
+    ? `import type { TRuleWithTheme } from '${config.moduleDependencies ? "../../dependencies" : "styles/theme"}';\n`
+    : `import type { TRule } from '${config.moduleDependencies ? "../../dependencies" : "fela"}';`
 }
 
-export const container: TRule = () => ({});
+export const container: ${config.typescriptFelaTheme ? "TRuleWithTheme" : "TRule"} = () => ({});
 `;
 
-export const component = (name: string, dependencies: boolean) => `${
-  dependencies
-    ? "import { React, FC } from '../../dependencies';"
-    : "import React, { FC } from 'react';"
-}
+export const component = (name: string, config: Configuration) => `${
+  config.includeReactImport
+    ? config.moduleDependencies
+      ? "import { React } from '../../dependencies';"
+      : "import React from 'react';"
+    : ""
+} 
 
 export interface ${name}Props {}
 
-const ${name}: FC<${name}Props> = () => (
+export const ${name} = ({}: ${name}Props) => {
+  return (
     <>
-        
+    
     </>
-);
-
-export default ${name};
+  );  
+};
 `;

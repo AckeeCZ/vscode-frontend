@@ -15,13 +15,10 @@ jobs:
           node-version: "14"
 
       - name: Install
-        run: npm install -g vsce && npm install
+        run: yarn install --frozen-lockfile
 
-      - name: Build
-        run: npm ci
-
-      - name: Prepublish
-        run: npm run vscode:prepublish
+      - name: Build & Prepublish
+        run: yarn vscode:prepublish
 
       - name: Deploy to marketplace
-        run: vsce publish -p ${{ secrets.VS_TOKEN }}
+        run: $(yarn bin)/vsce publish -p ${{ secrets.VS_TOKEN }}

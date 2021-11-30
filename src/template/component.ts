@@ -1,46 +1,52 @@
-export const index = (name) => `export { default } from './${name}';\n`;
+import type { Configuration } from "../types";
 
-export const indexFela = (name, dependencies: boolean) => `${
-  dependencies
-    ? "import { connectFela } from '../../dependencies'"
-    : "import { connect as connectFela } from 'react-fela'"
+export const index = (name: string) => `export * from './${name}';\n`;
+
+export const indexFela = (name: string, config: Configuration) => `${
+  config.moduleDependencies
+    ? `import {${config.includeReactImport ? " React," : ""} connectFela } from '../../dependencies'`
+    : `${
+        config.includeReactImport ? `import React from 'react';\n` : ""
+      }import { connect as connectFela } from 'react-fela'`
 };
-import ${name} from './${name}';
+import { ${name} as ${name}Own } from './${name}';
 import * as felaRules from './${name}.rules';
 
-export default connectFela(felaRules)(${name});
+export const ${name} = connectFela(felaRules)(${name}Own);
 `;
 
-export const felaComponent = (name: string, dependencies: boolean) => `${
-  dependencies
-    ? "import { React, PropTypes } from '../../dependencies';"
-    : "import React from 'react';\nimport PropTypes from 'prop-types';"
+export const felaComponent = (name: string, config: Configuration) => `${
+  config.moduleDependencies
+    ? `import {${config.includeReactImport ? " React," : ""} PropTypes } from '../../dependencies';`
+    : `${config.includeReactImport ? `import React from 'react';\n` : ""}import PropTypes from 'prop-types';`
 }
 
-const ${name} = ({ styles }) => (
+export const ${name} = ({ styles }) => {
+  return (
     <div className={styles.container}>
         
     </div>
-);
+  );
+};
 
 ${name}.propTypes = {
     styles: PropTypes.shape({
         container: PropTypes.string.isRequired
     }).isRequired
 };
-
-export default ${name};
 `;
 
-export const felaHookComponent = (name: string, dependencies: boolean) => `${
-  dependencies
-    ? "import { React, PropTypes, useFelaEnhanced } from '../../dependencies';"
-    : "import React from 'react';\nimport PropTypes from 'prop-types';\nimport { useFelaEnhanced } from 'hooks'"
+export const felaHookComponent = (name: string, config: Configuration) => `${
+  config.moduleDependencies
+    ? `import {${config.includeReactImport ? " React," : ""} PropTypes, useFelaEnhanced } from '../../dependencies';`
+    : `${
+        config.includeReactImport ? `import React from 'react';\n` : ""
+      }import PropTypes from 'prop-types';\nimport { useFelaEnhanced } from 'hooks'`
 }
 
 import * as felaRules from './${name}.rules';
 
-const ${name} = () => {
+export const ${name} = () => {
     const { styles } = useFelaEnhanced(felaRules);
 
     return (
@@ -55,26 +61,25 @@ ${name}.propTypes = {
         container: PropTypes.string.isRequired
     }).isRequired
 };
-
-export default ${name};
 `;
 
-export const styles = (dependencies: boolean) =>
-  "export const container = () => ({});\n";
+export const styles = () => "export const container = () => ({});\n";
 
-export const component = (name: string, dependencies: boolean) => `${
-  dependencies
-    ? "import { React, PropTypes } from '../../dependencies';"
-    : "import React from 'react';\nimport PropTypes from 'prop-types';"
-}
+export const component = (name: string, config: Configuration) => `${
+  config.includeReactImport
+    ? config.moduleDependencies
+      ? "import { React } from '../../dependencies';"
+      : "import React from 'react';"
+    : ""
+} 
 
-const ${name} = () => (
+export const ${name} = () => {
+  return (
     <>
-        
+
     </>
-);
+  );
+};
 
 ${name}.propTypes = {};
-
-export default ${name};
 `;
