@@ -4,8 +4,10 @@ export const index = (name: string) => `export * from './${name}';\n`;
 
 export const indexFela = (name: string, config: Configuration) => `${
   config.moduleDependencies
-    ? "import { connectFela } from '../../dependencies'"
-    : "import { connect as connectFela } from 'react-fela'"
+    ? `import {${config.includeReactImport ? " React," : ""} connectFela } from '../../dependencies'`
+    : `${
+        config.includeReactImport ? `import React from 'react';\n` : ""
+      }import { connect as connectFela } from 'react-fela'`
 };
 import { ${name} as ${name}Own } from './${name}';
 import * as felaRules from './${name}.rules';
@@ -15,8 +17,8 @@ export const ${name} = connectFela(felaRules)(${name}Own);
 
 export const felaComponent = (name: string, config: Configuration) => `${
   config.moduleDependencies
-    ? "import { PropTypes } from '../../dependencies';"
-    : "import PropTypes from 'prop-types';"
+    ? `import {${config.includeReactImport ? " React," : ""} PropTypes } from '../../dependencies';`
+    : `${config.includeReactImport ? `import React from 'react';\n` : ""}import PropTypes from 'prop-types';`
 }
 
 export const ${name} = ({ styles }) => {
@@ -36,8 +38,10 @@ ${name}.propTypes = {
 
 export const felaHookComponent = (name: string, config: Configuration) => `${
   config.moduleDependencies
-    ? "import { PropTypes, useFelaEnhanced } from '../../dependencies';"
-    : "import PropTypes from 'prop-types';\nimport { useFelaEnhanced } from 'hooks'"
+    ? `import {${config.includeReactImport ? " React," : ""} PropTypes, useFelaEnhanced } from '../../dependencies';`
+    : `${
+        config.includeReactImport ? `import React from 'react';\n` : ""
+      }import PropTypes from 'prop-types';\nimport { useFelaEnhanced } from 'hooks'`
 }
 
 import * as felaRules from './${name}.rules';
@@ -62,10 +66,12 @@ ${name}.propTypes = {
 export const styles = () => "export const container = () => ({});\n";
 
 export const component = (name: string, config: Configuration) => `${
-  config.moduleDependencies
-    ? "import { PropTypes } from '../../dependencies';"
-    : "import PropTypes from 'prop-types';"
-}
+  config.includeReactImport
+    ? config.moduleDependencies
+      ? "import { React } from '../../dependencies';"
+      : "import React from 'react';"
+    : ""
+} 
 
 export const ${name} = () => {
   return (
