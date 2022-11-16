@@ -41,7 +41,9 @@ export const felaHookComponent = (name: string, config: Configuration) => `${
     ? `import {${config.includeReactImport ? " React," : ""} PropTypes, useFelaEnhanced } from '../../dependencies';`
     : `${
         config.includeReactImport ? `import React from 'react';\n` : ""
-      }import PropTypes from 'prop-types';\nimport { useFelaEnhanced } from 'hooks'`
+      }import PropTypes from 'prop-types';\nimport { useFelaEnhanced } from '${
+        config.useAckeeFelaPackage ? "@ackee/fela" : "hooks"
+      }'`
 }
 
 import * as felaRules from './${name}.rules';

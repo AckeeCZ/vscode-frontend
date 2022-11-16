@@ -7,4 +7,5 @@ export interface Configuration extends vscode.WorkspaceConfiguration {
   typescriptFelaTheme: boolean;
   typescriptFelaExtendProp: boolean;
   includeReactImport: boolean;
+  useAckeeFelaPackage: boolean;
 }

@@ -9,13 +9,13 @@ const getExtendProp = (config: Configuration) =>
       }`
     : "";
 
-const getExtendPropImport = ({ typescriptFelaExtendProp, typescriptFelaTheme }: Configuration) => {
+const getExtendPropImport = ({ typescriptFelaExtendProp, typescriptFelaTheme, useAckeeFelaPackage }: Configuration) => {
   if (!typescriptFelaExtendProp) {
     return "";
   }
 
   return typescriptFelaTheme
-    ? `import type { RulesExtend } from 'styles/theme';`
+    ? `import type { RulesExtend } from '${useAckeeFelaPackage ? "@ackee/fela" : "styles/theme"}';`
     : "import type { TRule } from 'fela';";
 };
 
@@ -47,7 +47,9 @@ export const ${name} = ({ styles }: ${name}Props) => {
 export const felaHookComponent = (name: string, config: Configuration) => `${
   config.moduleDependencies
     ? `import {${config.includeReactImport ? " React," : ""} useFelaEnhanced } from '../../dependencies';`
-    : `${config.includeReactImport ? `import React from 'react';\n` : ""}import { useFelaEnhanced } from 'hooks';`
+    : `${config.includeReactImport ? `import React from 'react';\n` : ""}import { useFelaEnhanced } from '${
+        config.useAckeeFelaPackage ? "@ackee/fela" : "hooks"
+      }';`
 }
 ${getExtendPropImport(config)}
 
@@ -70,7 +72,9 @@ export const ${name} = ({ ${config.typescriptFelaExtendProp ? "extend" : ""} }: 
 
 export const styles = (config: Configuration) => `${
   config.typescriptFelaTheme
-    ? `import type { TRuleWithTheme } from '${config.moduleDependencies ? "../../dependencies" : "styles/theme"}';\n`
+    ? `import type { TRuleWithTheme } from '${
+        config.moduleDependencies ? "../../dependencies" : config.useAckeeFelaPackage ? "@ackee/fela" : "styles/theme"
+      }';\n`
     : `import type { TRule } from '${config.moduleDependencies ? "../../dependencies" : "fela"}';`
 }
 

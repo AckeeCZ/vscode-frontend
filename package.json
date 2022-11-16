@@ -91,6 +91,11 @@
           "type": "boolean",
           "default": false,
           "description": "If enabled, a scaffolded component will include import of React."
+        },
+        "ackeeFrontend.useAckeeFelaPackage": {
+          "type": "boolean",
+          "default": false,
+          "description": "If enabled, useFelaEnhanced and related types will be imported from @ackee/fela package."
         }
       }
     }
