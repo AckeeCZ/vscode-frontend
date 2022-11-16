@@ -23,7 +23,7 @@ export const felaComponent = (name: string, config: Configuration) => `${
   config.moduleDependencies
     ? `import {${config.includeReactImport ? " React," : ""} FelaWithStylesProps } from '../../dependencies';`
     : `${
-        config.includeReactImport ? `import React from 'react'\n` : ""
+        config.includeReactImport ? `import React from 'react';\n` : ""
       }import type { FelaWithStylesProps } from 'react-fela';`
 }
 ${getExtendPropImport(config)}
