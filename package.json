@@ -2,7 +2,7 @@
   "name": "ackee-frontend",
   "displayName": "Ackee frontend",
   "description": "A set of useful snippets and commands we use at Ackee for web apps development.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "repository": "https://github.com/AckeeCZ/vscode-frontend",
   "publisher": "ackee",
   "license": "MIT",
