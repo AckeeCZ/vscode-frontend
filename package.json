@@ -125,7 +125,7 @@
   "dependencies": {
     "fs": "0.0.1-security",
     "path": "^0.12.7",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.5"
   },
   "resolutions": {
     "yargs-parser": "^20.2.4",
