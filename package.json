@@ -108,14 +108,13 @@
     "check": "tsc --noEmit",
     "package": "vsce package --yarn",
     "test": "jest",
-    "version": "changelog-it && code --wait CHANGELOG.md && git add CHANGELOG.md"
+    "version": "npx gitmoji-changelog && code --wait CHANGELOG.md && git add CHANGELOG.md"
   },
   "devDependencies": {
     "@types/jest": "^29.2.3",
     "@types/node": "^14.16.0",
     "@types/shelljs": "^0.8.9",
     "@types/vscode": "^1.62.0",
-    "changelog-it": "github:AckeeCZ/changelog-it",
     "jest": "^29.3.1",
     "parcel": "^2.0.1",
     "ts-jest": "^29.0.3",
